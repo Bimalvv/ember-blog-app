@@ -15,6 +15,18 @@ App.PostsRoute = Ember.Route.extend({
 	}
 });
 
+App.PostController = Ember.ObjectController.extend({
+	isEditing: false,
+	actions: {
+		edit: function () {
+			this.set('isEditing', true);
+		},
+		doneEditing: function () {
+			this.set('isEditing', false);
+		}
+	}
+});
+
 var posts = [{
 	id: '1',
 	title: 'My first blog',
