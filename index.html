@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Ember Starter Kit</title>
+	<title>Ember Blog Application</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/bootstrap/bootstrap-responsive.min.css">
@@ -30,18 +30,18 @@
 	<script type="text/x-handlebars" id="posts">
 		<div class="container-fluid">
 			<div class="row-fluid">
-				<div class="span3">
-					<table class="table">
+				<div class="span2">
+					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Recent Posts</th>
 							</tr>
 						</thead>
-						{{#each}}
+						{{#each post in model}}
 						<tr>
 							<td>
-								{{#link-to 'post' this}} {{title}}
-								<small class="muted">by {{author.name}}</small> {{/link-to}}
+								{{#link-to 'post' post}} {{post.title}}
+								<small class="muted">by {{post.author.name}}</small> {{/link-to}}
 							</td>
 						</tr>
 						{{/each}}
@@ -57,19 +57,19 @@
 
 	<script type="text/x-handlebars" id="post">
 		{{#if isEditing}} {{partial 'post/edit'}}
-		<button {{action 'doneEditing'}}>Done</button>
+		<button {{action 'doneEditing'}} class="btn btn-success">Done</button>
 		{{else}}
-		<button {{action 'edit'}}>Edit</button>
+		<button {{action 'edit'}} class="btn btn-primary">Edit</button>
 		{{/if}}
 
 		<h1>{{title}}</h1>
-		<h2>by {{author.name}} <small class="muted">{{{date}}}</small></h2>
+		<h2>by {{author.name}} <small class="muted">({{format-date date}})</small></h2>
 		<hr/>
 		<div class="intro">
-			{{excerpt}}
+			{{format-markdown excerpt}}
 		</div>
 		<div class="below-the-fold">
-			{{body}}
+			{{format-markdown body}}
 		</div>
 	</script>
 
@@ -86,6 +86,7 @@
 	</script>
 
 	<script src="js/libs/jquery-1.10.2.js"></script>
+	<script src="js/libs/handlebars-v3.0.0.js"></script>
 	<script src="js/libs/ember-template-compiler-1.10.0.js"></script>
 	<script src="js/libs/ember-1.10.0.debug.js"></script>
 	<script src="js/libs/bootstrap/bootstrap.js"></script>
